@@ -1,0 +1,35 @@
+.container1{
+	border: 1px solid black;
+	margin-right: 0.5%;
+	width: 17%;
+	height: 100%;
+	float: left;
+}
+.container2{
+	border: 1px solid black;
+	margin-right: 0.5%;
+	width: 80%;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+/*.container3{
+	border: 1px solid black;
+	margin-right: 0.5%;
+	width: 40%;
+	height: 100%;
+	float: left;
+}*/
+.input__text{
+	width: 90%;
+}
+.todo_options{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+[data-todo-option ="active"] .item:not([data-todo-state="active"]),
+[data-todo-option ="completed"] .item:not([data-todo-state="completed"]){
+	display: none;
+}
