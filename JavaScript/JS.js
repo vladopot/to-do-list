@@ -44,7 +44,7 @@ function rem(){
 		items[i].outerHTML = '';
 	}
 } */
-
+init();
 document.querySelector(".add_btn").addEventListener("click", add);
 document.querySelector(".options").addEventListener("change", update);
 document.querySelector(".ch_box_all").addEventListener("change", check_all);
