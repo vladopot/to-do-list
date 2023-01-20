@@ -63,7 +63,7 @@ function add() {
 	if (text === '' || text === undefined) {
 		return false;
 	} else {
-		document.querySelector(".todo").insertAdjacentHTML(add_direction ,`<li class="elem" data-status = "active"><input type="checkbox" class="ch_box">${text}<div class="control_panel">
+		document.querySelector(".todo").insertAdjacentHTML(add_direction ,`<li class="elem" data-status = "active"><input type="checkbox" class="ch_box" data-status = "active">${text}<div class="control_panel">
 			<button class="del_btn">del</button>
 			<button class="done_btn">done</button>
 			<button class="notDone_btn">nDone</button>
@@ -97,25 +97,23 @@ function del (e) {
 
 function done (e) {
 	let target = e.target.parentNode.previousSibling.previousSibling;
+	console.log(target);
 	target.checked = true;
 	let targets = document.querySelectorAll(".ch_box");
 	for (let i = 0; i < targets.length; i++) {
 		if (targets[i].checked) {
 			if (targets[i].closest("li").dataset.status === "active"){
 				targets[i].closest("li").dataset.status = "completed";
+				targets[i].dataset.status = "completed";
 			} else if (targets[i].closest("li").dataset.status === "completed") {
 				targets[i].closest("li").dataset.status = "active";
+				targets[i].dataset.status = "active";
 			}
 			targets[i].checked = false;	
 		}
 	}
 	target.checked = false;
 	document.querySelector(".ch_box_all").checked = false;
-	/* if (target.dataset.status === "active") {
-		target.dataset.status = "completed";
-	} else if (target.dataset.status === "completed") {
-		target.dataset.status = "active"; 
-	} */
 	save();
 }
 function init () {
@@ -142,8 +140,14 @@ function save () {
 }
 
 function check_all() {
+	let opt_stat = document.querySelector(".options").value;
 	let ch_all = document.querySelector(".ch_box_all");
-	let ch_boxes = document.querySelectorAll(".ch_box");
+	let ch_boxes = Array.from(document.querySelectorAll(".ch_box"));
+	ch_boxes = ch_boxes.filter((e) => {
+		if (e.dataset.status === opt_stat) {
+			return e;
+		}
+	})
 	for (let i = 0; i < ch_boxes.length; i++) {
 		if (ch_all.checked) {
 			ch_boxes[i].checked = this.checked;
