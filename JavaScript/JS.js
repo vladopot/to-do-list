@@ -71,18 +71,19 @@ function add() {
 		document.querySelector(".del_btn").addEventListener("click", del);
 		document.querySelector(".done_btn").addEventListener("click", done);
 		document.querySelector(".notDone_btn").addEventListener("click", done);
+		document.querySelector("li").addEventListener("dblclick", edit);
 		save();
 	}
 	document.querySelector(".input_text").value = "";
 }
 
-function update () {
+function update() {
 	let option = document.querySelector(".options").value;
 	document.querySelector(".todo").dataset.option = option;
 	save();
 }
 
-function del (e) {
+function del(e) {
 	let target = e.target.closest("li");
 	let targets = document.querySelectorAll(".ch_box");
 	for (let i = 0; i < targets.length; i++) {
@@ -95,7 +96,7 @@ function del (e) {
 	save();
 }
 
-function done (e) {
+function done(e) {
 	let target = e.target.parentNode.previousSibling.previousSibling;
 	console.log(target);
 	target.checked = true;
@@ -116,7 +117,7 @@ function done (e) {
 	document.querySelector(".ch_box_all").checked = false;
 	save();
 }
-function init () {
+function init() {
 	const fromStorage = localStorage.getItem("todo");
 	if (fromStorage) {
 		document.querySelector(".list").innerHTML = fromStorage;
@@ -135,7 +136,7 @@ function init () {
 	};
 }
 
-function save () {
+function save() {
 	localStorage.setItem("todo", document.querySelector(".list").innerHTML);
 }
 
@@ -157,7 +158,7 @@ function check_all() {
 	}
 }
 
-function sort () {
+function sort() {
 	let list = document.querySelectorAll("li");
 	list.forEach((e) => e.remove());
 	for (let i = 0; i < list.length; i++) {
@@ -169,3 +170,8 @@ function sort () {
 		document.querySelector(".sort_btn").dataset.option = "normal";
 	}
 }	
+
+function edit(e) {
+	let target = e.target;
+	console.log(target.innerHTML.replace(/<button(.*?)<\/button>/g, ""));
+}
